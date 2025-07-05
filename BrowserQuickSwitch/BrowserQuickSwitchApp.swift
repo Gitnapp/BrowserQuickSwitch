@@ -1,17 +1,25 @@
-//
-//  BrowserQuickSwitchApp.swift
-//  BrowserQuickSwitch
-//
-//  Created by 余子健 on 1/26/25.
-//
-
 import SwiftUI
 
 @main
 struct BrowserQuickSwitchApp: App {
+    @Environment(\.openURL) private var openURL
+    
     var body: some Scene {
-        WindowGroup {
+        MenuBarExtra {
             ContentView()
+            
+            Divider()
+            
+            Button("About") {
+                openURL(URL(string: "https://yourappwebsite.com/about")!)
+            }
+            
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut("q")
+        } label: {
+            Image(systemName: "globe")
         }
     }
 }
