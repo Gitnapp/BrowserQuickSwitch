@@ -56,7 +56,7 @@ struct AboutView: View {
                 .fontWeight(.medium)
             
             // 版本信息
-            Text("版本 1.0 (1.0.0)")
+            Text("版本 1.0 (1.0.1)")
                 .font(.body)
                 .foregroundColor(.secondary)
                         
