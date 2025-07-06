@@ -59,12 +59,10 @@ struct AboutView: View {
             Text("版本 1.0 (1.0.0)")
                 .font(.body)
                 .foregroundColor(.secondary)
-            
-            Spacer()
-            
+                        
             // 版权信息
             VStack(spacing: 4) {
-                Text("Copyright © 2024")
+                Text("Copyright © 2025 Zijian")
                     .font(.footnote)
                     .foregroundColor(.secondary)
                 Text("保留一切权利。")
