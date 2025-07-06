@@ -109,9 +109,6 @@ struct ContentView: View {
             NSWorkspace.shared.setDefaultApplication(at: appUrl, toOpenURLsWithScheme: "http") { error in
                 if let error = error {
                     print("设置失败: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self.showManualSetupAlert(browserInfo: browserInfo)
-                    }
                     completion(false)
                     return
                 }
@@ -127,24 +124,7 @@ struct ContentView: View {
         }
     }
         
-    private func showManualSetupAlert(browserInfo: BrowserInfo) {
-        let alert = NSAlert()
-        alert.messageText = "需要手动设置"
-        alert.informativeText = """
-        请按以下步骤操作：
-        1. 打开系统设置
-        2. 进入「通用」
-        3. 选择「默认网页浏览器」
-        4. 选择 \(browserInfo.displayName)
-        """
-        alert.addButton(withTitle: "打开系统设置")
-        alert.addButton(withTitle: "取消")
-        
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.general?DefaultBrowser")!)
-        }
-    }
+
     
     private func showAlert(message: String) {
         alertMessage = message

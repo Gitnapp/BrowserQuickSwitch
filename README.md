@@ -1,6 +1,9 @@
 # BrowserQuickSwitch
 A macOS menubar application for default browser switching.
 
+## System Requirements
+- macOS 13.0 or later
+
 ## Supported Browsers
 
 BrowserQuickSwitch supports the following browsers:
