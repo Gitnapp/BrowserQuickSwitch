@@ -13,6 +13,14 @@ struct BrowserQuickSwitchApp: App {
             Image(systemName: "globe")
         }
 
+        // Settings Window
+        Window("设置", id: "settings") {
+            SettingsView()
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
+        
         // About Window (SwiftUI way)
         Window("关于 BrowserQuickSwitch", id: "about") {
             AboutView()
@@ -31,6 +39,11 @@ struct MenuContent: View {
         ContentView()
 
         Divider()
+        
+        Button("设置") {
+            openSettingsWindow()
+        }
+        .keyboardShortcut(",")
 
         Button("关于") {
             openAboutWindow()
@@ -43,6 +56,14 @@ struct MenuContent: View {
     }
 
     // MARK: - Helpers
+    private func openSettingsWindow() {
+        openWindow(id: "settings")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            NSApp.activate(ignoringOtherApps: true)
+        }
+    }
+    
     private func openAboutWindow() {
         // 使用 SwiftUI 的 openWindow 环境变量
         openWindow(id: "about")

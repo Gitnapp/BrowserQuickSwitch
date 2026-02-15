@@ -4,6 +4,7 @@ import AppKit
 // MARK: - Content View
 struct ContentView: View {
     @StateObject private var viewModel = BrowserViewModel()
+    @AppStorage("showBrowserIcon") private var showBrowserIcon = true
 
     var body: some View {
         Group {
@@ -34,6 +35,7 @@ struct ContentView: View {
             BrowserRow(
                 browserInfo: browserInfo,
                 isSelected: viewModel.isDefaultBrowser(browserInfo),
+                showBrowserIcon: showBrowserIcon,
                 onSelect: {
                     Task {
                         await viewModel.selectBrowser(browserInfo)
@@ -48,21 +50,26 @@ struct ContentView: View {
 struct BrowserRow: View {
     let browserInfo: BrowserInfo
     let isSelected: Bool
+    let showBrowserIcon: Bool
     let onSelect: () -> Void
 
     var body: some View {
         Button(action: onSelect) {
             HStack(spacing: 8) {
-                // Selection indicator
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .accentColor : .secondary)
-                    .font(.system(size: 14))
-
-                // Browser icon
-                if let icon = browserInfo.icon {
-                    Image(nsImage: icon)
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                if showBrowserIcon {
+                    if let icon = browserInfo.icon {
+                        Image(nsImage: icon)
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    } else {
+                        Image(systemName: "globe")
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(.secondary)
+                    }
+                } else {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(isSelected ? .accentColor : .secondary)
+                        .font(.system(size: 14))
                 }
 
                 // Browser name
