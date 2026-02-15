@@ -14,7 +14,7 @@ enum BrowserServiceError: LocalizedError {
     case unsupportedOS
     case setDefaultFailed(String)
     case unknown
-    
+
     var errorDescription: String? {
         switch self {
         case .browserNotInstalled:
@@ -33,15 +33,15 @@ enum BrowserServiceError: LocalizedError {
 final class BrowserService: BrowserServiceProtocol {
     static let shared = BrowserService()
     private let workspace: NSWorkspace
-    
+
     init(workspace: NSWorkspace = .shared) {
         self.workspace = workspace
     }
-    
+
     // MARK: - Get Installed Browsers
     func getInstalledBrowsers() async -> [BrowserInfo] {
         var installedBrowsers: [BrowserInfo] = []
-        
+
         for var browser in BrowserConfiguration.knownBrowsers {
             if let appURL = workspace.urlForApplication(withBundleIdentifier: browser.bundleId) {
                 browser.isInstalled = true
@@ -52,10 +52,10 @@ final class BrowserService: BrowserServiceProtocol {
                 installedBrowsers.append(browser)
             }
         }
-        
+
         return installedBrowsers
     }
-    
+
     // MARK: - Get Current Default Browser
     func getCurrentDefaultBrowser() async -> BrowserInfo? {
         guard let url = URL(string: "https://"),
@@ -63,11 +63,11 @@ final class BrowserService: BrowserServiceProtocol {
               let bundleID = Bundle(url: appURL)?.bundleIdentifier else {
             return nil
         }
-        
+
         let displayName = getApplicationDisplayName(appURL: appURL)
         let icon = await loadIcon(at: appURL.path)
         let websiteURL = inferWebsiteURL(from: bundleID)
-        
+
         var browserInfo = BrowserInfo(
             bundleId: bundleID,
             displayName: displayName,
@@ -77,24 +77,24 @@ final class BrowserService: BrowserServiceProtocol {
         browserInfo.icon = icon
         browserInfo.isDefault = true
         browserInfo.isInstalled = true
-        
+
         return browserInfo
     }
-    
+
     // MARK: - Set Default Browser
     func setDefaultBrowser(_ browserInfo: BrowserInfo) async throws {
         guard #available(macOS 13.0, *) else {
             throw BrowserServiceError.unsupportedOS
         }
-        
+
         guard isBrowserInstalled(bundleId: browserInfo.bundleId) else {
             throw BrowserServiceError.browserNotInstalled
         }
-        
+
         guard let appUrl = workspace.urlForApplication(withBundleIdentifier: browserInfo.bundleId) else {
             throw BrowserServiceError.browserNotInstalled
         }
-        
+
         return try await withCheckedThrowingContinuation { continuation in
             workspace.setDefaultApplication(at: appUrl, toOpenURLsWithScheme: "http") { error in
                 if let error = error {
@@ -105,12 +105,12 @@ final class BrowserService: BrowserServiceProtocol {
             }
         }
     }
-    
+
     // MARK: - Private Helpers
     private func isBrowserInstalled(bundleId: String) -> Bool {
         workspace.urlForApplication(withBundleIdentifier: bundleId) != nil
     }
-    
+
     private func loadIcon(at path: String) async -> NSImage? {
         // 方法1: 尝试从 Bundle 加载图标（更可靠）
         if let bundle = Bundle(path: path),
@@ -124,11 +124,11 @@ final class BrowserService: BrowserServiceProtocol {
                 return icon
             }
         }
-        
+
         // 方法2: 使用 NSWorkspace 获取图标（备用方案）
         return NSWorkspace.shared.icon(forFile: path)
     }
-    
+
     private func getApplicationDisplayName(appURL: URL) -> String {
         if let bundle = Bundle(url: appURL),
            let name = bundle.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
@@ -137,7 +137,7 @@ final class BrowserService: BrowserServiceProtocol {
         }
         return appURL.deletingPathExtension().lastPathComponent
     }
-    
+
     private func inferWebsiteURL(from bundleID: String) -> URL {
         let urlString: String
         if bundleID.contains("chrome") {

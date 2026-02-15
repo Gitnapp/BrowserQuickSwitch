@@ -4,7 +4,7 @@ import AppKit
 // MARK: - Content View
 struct ContentView: View {
     @StateObject private var viewModel = BrowserViewModel()
-    
+
     var body: some View {
         Group {
             if viewModel.isLoading {
@@ -27,7 +27,7 @@ struct ContentView: View {
             await viewModel.loadBrowsers()
         }
     }
-    
+
     // MARK: - Browser List
     private var browserList: some View {
         ForEach(viewModel.installedBrowsers) { browserInfo in
@@ -49,7 +49,7 @@ struct BrowserRow: View {
     let browserInfo: BrowserInfo
     let isSelected: Bool
     let onSelect: () -> Void
-    
+
     var body: some View {
         Toggle(isOn: Binding(
             get: { isSelected },

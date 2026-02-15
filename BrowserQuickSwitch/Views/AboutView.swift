@@ -5,29 +5,29 @@ struct AboutView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
-            
+
             // App Icon
             appIcon
-            
+
             // App Name
             Text("BrowserQuickSwitch")
                 .font(.title)
                 .fontWeight(.medium)
-            
+
             // Version Info
             versionInfo
-            
+
             Spacer()
-            
+
             // Copyright
             copyrightInfo
-            
+
             Spacer()
         }
         .frame(width: 400, height: 350)
         .background(Color(NSColor.windowBackgroundColor))
     }
-    
+
     // MARK: - Subviews
     private var appIcon: some View {
         Image(systemName: "globe")
@@ -35,36 +35,36 @@ struct AboutView: View {
             .foregroundColor(.accentColor)
             .symbolRenderingMode(.hierarchical)
     }
-    
+
     private var versionInfo: some View {
         VStack(spacing: 4) {
             Text("版本 \(appVersion)")
                 .font(.body)
                 .foregroundColor(.secondary)
-            
+
             Text("Build \(buildNumber)")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
     }
-    
+
     private var copyrightInfo: some View {
         VStack(spacing: 4) {
             Text("Copyright © 2025 Zijian")
                 .font(.footnote)
                 .foregroundColor(.secondary)
-            
+
             Text("保留一切权利")
                 .font(.footnote)
                 .foregroundColor(.secondary)
         }
     }
-    
+
     // MARK: - App Info Helpers
     private var appVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
     }
-    
+
     private var buildNumber: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
     }
