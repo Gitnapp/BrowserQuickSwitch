@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Settings View
 struct SettingsView: View {
     @AppStorage("showBrowserIcon") private var showBrowserIcon = true
-    
+
     var body: some View {
         VStack(spacing: 20) {
             // Header
@@ -11,15 +11,15 @@ struct SettingsView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             Divider()
-            
+
             // Settings Options
             VStack(alignment: .leading, spacing: 16) {
                 Text("显示选项")
                     .font(.headline)
                     .foregroundColor(.secondary)
-                
+
                 VStack(spacing: 12) {
                     SettingRow(
                         title: "图标模式",
@@ -28,9 +28,9 @@ struct SettingsView: View {
                     )
                 }
             }
-            
+
             Spacer()
-            
+
             // Footer Info
             VStack(spacing: 4) {
                 Text("更改将立即生效")
@@ -49,7 +49,7 @@ struct SettingRow: View {
     let title: String
     let description: String
     @Binding var isOn: Bool
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Toggle(isOn: $isOn) {
