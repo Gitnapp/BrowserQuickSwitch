@@ -1,76 +1,55 @@
 import SwiftUI
 
+// MARK: - Main App
 @main
 struct BrowserQuickSwitchApp: App {
-    @Environment(\.openURL) private var openURL
+    @Environment(\.openWindow) private var openWindow
     
     var body: some Scene {
+        // MenuBar Extra
         MenuBarExtra {
-            ContentView()
-            
-            Divider()
-            
-            Button("About") {
-                showAboutWindow()
-            }
-            
-            Button("Quit") {
-                NSApplication.shared.terminate(nil)
-            }
-            .keyboardShortcut("q")
+            MenuContent()
         } label: {
             Image(systemName: "globe")
         }
-    }
-    
-    private func showAboutWindow() {
-        let aboutWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 300),
-            styleMask: [.titled, .closable],
-            backing: .buffered,
-            defer: false
-        )
         
-        aboutWindow.title = "关于 BrowserQuickSwitch"
-        aboutWindow.center()
-        aboutWindow.isReleasedWhenClosed = false
-        
-        let aboutView = AboutView()
-        aboutWindow.contentView = NSHostingView(rootView: aboutView)
-        
-        aboutWindow.makeKeyAndOrderFront(nil)
+        // About Window (SwiftUI way)
+        Window("关于 BrowserQuickSwitch", id: "about") {
+            AboutView()
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
     }
 }
 
-struct AboutView: View {
+// MARK: - Menu Content View
+struct MenuContent: View {
+    @Environment(\.openWindow) private var openWindow
+    
     var body: some View {
-        VStack(spacing: 20) {
-            // 应用图标
-            Image(systemName: "globe")
-                .font(.system(size: 80))
-                .foregroundColor(.accentColor)
-            
-            // 应用名称
-            Text("BrowserQuickSwitch")
-                .font(.title)
-                .fontWeight(.medium)
-            
-            // 版本信息
-            Text("版本 1.0 (1.0.1)")
-                .font(.body)
-                .foregroundColor(.secondary)
-                        
-            // 版权信息
-            VStack(spacing: 4) {
-                Text("Copyright © 2025 Zijian")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                Text("保留一切权利。")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-            }
+        ContentView()
+        
+        Divider()
+        
+        Button("关于") {
+            openAboutWindow()
         }
-        .padding(40)
-        .frame(width: 400, height: 300)
+        
+        Button("退出") {
+            NSApplication.shared.terminate(nil)
+        }
+        .keyboardShortcut("q")
+    }
+    
+    // MARK: - Helpers
+    private func openAboutWindow() {
+        // 使用 SwiftUI 的 openWindow 环境变量
+        openWindow(id: "about")
+        
+        // 激活应用并将窗口置于前台
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            NSApp.activate(ignoringOtherApps: true)
+        }
     }
 }
