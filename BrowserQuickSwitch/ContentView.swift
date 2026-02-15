@@ -51,25 +51,35 @@ struct BrowserRow: View {
     let onSelect: () -> Void
 
     var body: some View {
-        Toggle(isOn: Binding(
-            get: { isSelected },
-            set: { newValue in
-                if newValue {
-                    onSelect()
-                }
-            }
-        )) {
+        Button(action: onSelect) {
             HStack(spacing: 8) {
+                // Selection indicator
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(isSelected ? .accentColor : .secondary)
+                    .font(.system(size: 14))
+
+                // Browser icon
                 if let icon = browserInfo.icon {
                     Image(nsImage: icon)
                         .resizable()
                         .frame(width: 16, height: 16)
                 }
+
+                // Browser name
                 Text(browserInfo.displayName)
+                    .foregroundColor(.primary)
+
+                Spacer()
             }
+            .contentShape(Rectangle())
         }
-        .toggleStyle(CheckboxToggleStyle())
-        .padding(.vertical, 5)
+        .buttonStyle(.plain)
+        .padding(.vertical, 4)
+        .padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 6)
+                .fill(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
+        )
     }
 }
 

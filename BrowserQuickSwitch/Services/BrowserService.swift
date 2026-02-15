@@ -42,14 +42,18 @@ final class BrowserService: BrowserServiceProtocol {
     func getInstalledBrowsers() async -> [BrowserInfo] {
         var installedBrowsers: [BrowserInfo] = []
 
-        for var browser in BrowserConfiguration.knownBrowsers {
+        for browser in BrowserConfiguration.knownBrowsers {
             if let appURL = workspace.urlForApplication(withBundleIdentifier: browser.bundleId) {
-                browser.isInstalled = true
                 // 使用实际的应用 URL 加载图标
-                if let icon = await loadIcon(at: appURL.path) {
-                    browser.icon = icon
-                }
-                installedBrowsers.append(browser)
+                let icon = loadIcon(at: appURL.path)
+                let installedBrowser = BrowserInfo(
+                    bundleId: browser.bundleId,
+                    displayName: browser.displayName,
+                    appPath: appURL.path,
+                    websiteURL: browser.websiteURL,
+                    icon: icon
+                )
+                installedBrowsers.append(installedBrowser)
             }
         }
 
@@ -65,20 +69,16 @@ final class BrowserService: BrowserServiceProtocol {
         }
 
         let displayName = getApplicationDisplayName(appURL: appURL)
-        let icon = await loadIcon(at: appURL.path)
+        let icon = loadIcon(at: appURL.path)
         let websiteURL = inferWebsiteURL(from: bundleID)
 
-        var browserInfo = BrowserInfo(
+        return BrowserInfo(
             bundleId: bundleID,
             displayName: displayName,
             appPath: appURL.path,
-            websiteURL: websiteURL
+            websiteURL: websiteURL,
+            icon: icon
         )
-        browserInfo.icon = icon
-        browserInfo.isDefault = true
-        browserInfo.isInstalled = true
-
-        return browserInfo
     }
 
     // MARK: - Set Default Browser
@@ -111,7 +111,7 @@ final class BrowserService: BrowserServiceProtocol {
         workspace.urlForApplication(withBundleIdentifier: bundleId) != nil
     }
 
-    private func loadIcon(at path: String) async -> NSImage? {
+    private func loadIcon(at path: String) -> NSImage? {
         // 方法1: 尝试从 Bundle 加载图标（更可靠）
         if let bundle = Bundle(path: path),
            let iconFile = bundle.object(forInfoDictionaryKey: "CFBundleIconFile") as? String {
@@ -151,6 +151,11 @@ final class BrowserService: BrowserServiceProtocol {
         } else {
             urlString = "https://www.google.com"
         }
-        return URL(string: urlString)!
+
+        guard let url = URL(string: urlString) else {
+            // Fallback to a safe default
+            return URL(string: "https://www.google.com")!
+        }
+        return url
     }
 }

@@ -32,9 +32,6 @@ final class BrowserViewModel: ObservableObject {
 
         installedBrowsers = browsers
         currentDefaultBrowser = defaultBrowser
-
-        // 标记默认浏览器
-        updateDefaultBrowserStatus()
     }
 
     func selectBrowser(_ browserInfo: BrowserInfo) async {
@@ -61,7 +58,6 @@ final class BrowserViewModel: ObservableObject {
 
     func refreshDefaultBrowser() async {
         currentDefaultBrowser = await browserService.getCurrentDefaultBrowser()
-        updateDefaultBrowserStatus()
     }
 
     // MARK: - Helper Methods
@@ -72,15 +68,5 @@ final class BrowserViewModel: ObservableObject {
     private func showAlert(message: String) {
         alertMessage = message
         showAlert = true
-    }
-
-    private func updateDefaultBrowserStatus() {
-        guard let defaultBrowser = currentDefaultBrowser else { return }
-
-        // 更新已安装浏览器列表中的默认状态
-        for index in installedBrowsers.indices {
-            installedBrowsers[index].isDefault =
-                installedBrowsers[index].bundleId == defaultBrowser.bundleId
-        }
     }
 }
