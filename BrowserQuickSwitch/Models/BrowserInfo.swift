@@ -58,6 +58,7 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "com.microsoft.edgemac.Beta", displayName: "Microsoft Edge Beta", appPath: "/Applications/Microsoft Edge Beta.app", websiteURL: makeURL("https://microsoft.com/edge")),
 
         // Other Browsers
+        BrowserInfo(bundleId: "com.orabrowser.app", displayName: "Ora", appPath: "/Applications/Ora.app", websiteURL: makeURL("https://orabrowser.com")),
         BrowserInfo(bundleId: "com.brave.browser", displayName: "Brave", appPath: "/Applications/Brave Browser.app", websiteURL: makeURL("https://brave.com")),
         BrowserInfo(bundleId: "com.operasoftware.Opera", displayName: "Opera", appPath: "/Applications/Opera.app", websiteURL: makeURL("https://opera.com")),
         BrowserInfo(bundleId: "com.vivaldi.Vivaldi", displayName: "Vivaldi", appPath: "/Applications/Vivaldi.app", websiteURL: makeURL("https://vivaldi.com")),
