@@ -45,6 +45,7 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "com.google.Chrome.dev", displayName: "Chrome Dev", appPath: "/Applications/Google Chrome Dev.app", websiteURL: makeURL("https://google.com/chrome")),
         BrowserInfo(bundleId: "com.google.Chrome.beta", displayName: "Chrome Beta", appPath: "/Applications/Google Chrome Beta.app", websiteURL: makeURL("https://google.com/chrome")),
 
+        BrowserInfo(bundleId: "com.google.chrome.for.testing", displayName: "Chrome for Testing", appPath: "/Applications/Google Chrome for Testing.app", websiteURL: makeURL("https://google.com/chrome")),
         // Firefox
         BrowserInfo(bundleId: "org.mozilla.firefox", displayName: "Firefox", appPath: "/Applications/Firefox.app", websiteURL: makeURL("https://mozilla.org/firefox")),
         BrowserInfo(bundleId: "org.mozilla.firefoxdeveloperedition", displayName: "Firefox Developer Edition", appPath: "/Applications/Firefox Developer Edition.app", websiteURL: makeURL("https://mozilla.org/firefox/developer")),
@@ -68,5 +69,6 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "company.thebrowser.dia", displayName: "Dia", appPath: "/Applications/Dia.app", websiteURL: makeURL("https://dia.com")),
         BrowserInfo(bundleId: "com.quark.desktop", displayName: "Quark", appPath: "/Applications/Quark.app", websiteURL: makeURL("https://quark.com")),
         BrowserInfo(bundleId: "net.imput.helium", displayName: "Helium", appPath: "/Applications/Helium.app", websiteURL: makeURL("https://github.com/JadenGeller/Helium"))
+        BrowserInfo(bundleId: "io.browsewithnook.nook", displayName: "Nook", appPath: "/Applications/Nook.app", websiteURL: makeURL("https://browsewithnook.com")),
     ]
 }
