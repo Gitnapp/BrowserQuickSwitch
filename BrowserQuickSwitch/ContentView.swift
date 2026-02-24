@@ -5,6 +5,7 @@ import AppKit
 struct ContentView: View {
     @StateObject private var viewModel = BrowserViewModel()
     @AppStorage("showBrowserIcon") private var showBrowserIcon = true
+    @AppStorage("detectNonStandardPaths") private var detectNonStandardPaths = false
 
     var body: some View {
         Group {
@@ -26,6 +27,11 @@ struct ContentView: View {
         }
         .task {
             await viewModel.loadBrowsers()
+        }
+        .onChange(of: detectNonStandardPaths) { _ in
+            Task {
+                await viewModel.loadBrowsers()
+            }
         }
     }
 

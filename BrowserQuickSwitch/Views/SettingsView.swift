@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - Settings View
 struct SettingsView: View {
     @AppStorage("showBrowserIcon") private var showBrowserIcon = true
+    @AppStorage("detectNonStandardPaths") private var detectNonStandardPaths = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -25,6 +26,11 @@ struct SettingsView: View {
                         title: "图标模式",
                         description: "关闭后切换为 ✓ 指示器模式",
                         isOn: $showBrowserIcon
+                    )
+                    SettingRow(
+                        title: "非标准应用目录探测",
+                        description: "允许检测不在标准应用目录中的浏览器",
+                        isOn: $detectNonStandardPaths
                     )
                 }
             }

@@ -41,9 +41,20 @@ final class BrowserService: BrowserServiceProtocol {
     // MARK: - Get Installed Browsers
     func getInstalledBrowsers() async -> [BrowserInfo] {
         var installedBrowsers: [BrowserInfo] = []
+        let detectNonStandardPaths = UserDefaults.standard.bool(forKey: "detectNonStandardPaths")
 
         for browser in BrowserConfiguration.knownBrowsers {
             if let appURL = workspace.urlForApplication(withBundleIdentifier: browser.bundleId) {
+                if !detectNonStandardPaths {
+                    let isStandardPath = appURL.path.hasPrefix("/Applications/") || 
+                                         appURL.path.hasPrefix("/System/Applications/") || 
+                                         appURL.path.hasPrefix((NSHomeDirectory() + "/Applications/")) ||
+                                         appURL.path == browser.appPath
+                    if !isStandardPath {
+                        continue
+                    }
+                }
+
                 // 使用实际的应用 URL 加载图标
                 let icon = loadIcon(at: appURL.path)
                 let installedBrowser = BrowserInfo(
