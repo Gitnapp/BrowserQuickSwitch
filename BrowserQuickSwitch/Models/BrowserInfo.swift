@@ -68,7 +68,7 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "app.zen-browser.zen", displayName: "Zen Browser", appPath: "/Applications/Zen Browser.app", websiteURL: makeURL("https://zenbrowser.com")),
         BrowserInfo(bundleId: "company.thebrowser.dia", displayName: "Dia", appPath: "/Applications/Dia.app", websiteURL: makeURL("https://dia.com")),
         BrowserInfo(bundleId: "com.quark.desktop", displayName: "Quark", appPath: "/Applications/Quark.app", websiteURL: makeURL("https://quark.com")),
-        BrowserInfo(bundleId: "net.imput.helium", displayName: "Helium", appPath: "/Applications/Helium.app", websiteURL: makeURL("https://github.com/JadenGeller/Helium"))
-        BrowserInfo(bundleId: "io.browsewithnook.nook", displayName: "Nook", appPath: "/Applications/Nook.app", websiteURL: makeURL("https://browsewithnook.com")),
+        BrowserInfo(bundleId: "net.imput.helium", displayName: "Helium", appPath: "/Applications/Helium.app", websiteURL: makeURL("https://github.com/JadenGeller/Helium")),
+        BrowserInfo(bundleId: "io.browsewithnook.nook", displayName: "Nook", appPath: "/Applications/Nook.app", websiteURL: makeURL("https://browsewithnook.com"))
     ]
 }
