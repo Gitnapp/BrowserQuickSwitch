@@ -6,22 +6,30 @@ struct SettingsView: View {
     @AppStorage("detectNonStandardPaths") private var detectNonStandardPaths = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            // Header
-            Text("设置")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing: 0) {
+            // macOS Style Header with Image and App Name
+            VStack(spacing: 12) {
+                if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                    Image(nsImage: appIcon)
+                        .resizable()
+                        .frame(width: 64, height: 64)
+                } else {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .frame(width: 64, height: 64)
+                        .foregroundColor(.accentColor)
+                }
 
-            Divider()
+                Text("BrowserQuickSwitch")
+                    .font(.title)
+                    .fontWeight(.bold)
+            }
+            .padding(.top, 32)
+            .padding(.bottom, 24)
 
-            // Settings Options
-            VStack(alignment: .leading, spacing: 16) {
-                Text("显示选项")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-
-                VStack(spacing: 12) {
+            // Settings Options in a Form/List style
+            Form {
+                VStack(alignment: .leading, spacing: 20) {
                     SettingRow(
                         title: "图标模式",
                         description: "关闭后切换为 ✓ 指示器模式",
@@ -33,19 +41,18 @@ struct SettingsView: View {
                         isOn: $detectNonStandardPaths
                     )
                 }
+                .padding(.horizontal, 40)
             }
 
             Spacer()
 
             // Footer Info
-            VStack(spacing: 4) {
-                Text("更改将立即生效")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            Text("更改将立即生效")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.bottom, 20)
         }
-        .padding(24)
-        .frame(width: 400, height: 250)
+        .frame(width: 450, height: 380)
         .background(Color(NSColor.windowBackgroundColor))
     }
 }
@@ -57,19 +64,25 @@ struct SettingRow: View {
     @Binding var isOn: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Toggle(isOn: $isOn) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.body)
-                    Text(description)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
+        HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .trailing, spacing: 4) {
+                Text(title)
+                    .font(.body)
+                    .multilineTextAlignment(.trailing)
             }
-            .toggleStyle(.switch)
+            .frame(width: 140, alignment: .trailing)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Toggle("", isOn: $isOn)
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
-        .padding(.vertical, 4)
     }
 }
 
