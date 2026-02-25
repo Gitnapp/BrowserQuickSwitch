@@ -6,6 +6,7 @@
 
 ### Xcode ###
 build/
+altBuild/
 DerivedData/
 
 ## User settings
