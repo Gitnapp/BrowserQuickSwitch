@@ -1,35 +1,33 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "图标模式" : {
+    "" : {
+
+    },
+    "BrowserQuickSwitch" : {
+
+    },
+    "Build %@" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Icon Mode"
+            "value" : "Build %@"
           }
         }
       }
     },
-    "关闭后切换为 ✓ 指示器模式" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Switch to ✓ indicator mode when disabled"
-          }
-        }
-      }
+    "Copyright © 2025 Zijian" : {
+
     },
-    "非标准应用目录探测" : {
+    "保留一切权利" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Non-standard App Directory Detection"
+            "value" : "All rights reserved"
           }
         }
       }
@@ -45,46 +43,35 @@
         }
       }
     },
-    "更改将立即生效" : {
+    "关于" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Changes take effect immediately"
+            "value" : "About"
           }
         }
       }
     },
-    "版本 %@" : {
+    "关于 BrowserQuickSwitch" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Version %@"
+            "value" : "About BrowserQuickSwitch"
           }
         }
       }
     },
-    "Build %@" : {
+    "关闭后切换为 ✓ 指示器模式" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Build %@"
-          }
-        }
-      }
-    },
-    "保留一切权利" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All rights reserved"
+            "value" : "Switch to ✓ indicator mode when disabled"
           }
         }
       }
@@ -100,13 +87,13 @@
         }
       }
     },
-    "未检测到已安装的浏览器" : {
+    "图标模式" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No installed browsers detected"
+            "value" : "Icon Mode"
           }
         }
       }
@@ -118,6 +105,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notice"
+          }
+        }
+      }
+    },
+    "更改将立即生效" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes take effect immediately"
+          }
+        }
+      }
+    },
+    "未检测到已安装的浏览器" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No installed browsers detected"
+          }
+        }
+      }
+    },
+    "版本 %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
           }
         }
       }
@@ -144,28 +164,6 @@
         }
       }
     },
-    "关于 BrowserQuickSwitch" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "About BrowserQuickSwitch"
-          }
-        }
-      }
-    },
-    "关于" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "About"
-          }
-        }
-      }
-    },
     "退出" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -173,6 +171,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit"
+          }
+        }
+      }
+    },
+    "非标准应用目录探测" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non-standard App Directory Detection"
           }
         }
       }
