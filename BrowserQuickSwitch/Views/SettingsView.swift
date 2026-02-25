@@ -52,7 +52,7 @@ struct SettingsView: View {
                 .foregroundColor(.secondary)
                 .padding(.bottom, 20)
         }
-        .frame(width: 450, height: 380)
+        .frame(minWidth: 450, minHeight: 380)
         .background(Color(NSColor.windowBackgroundColor))
     }
 }

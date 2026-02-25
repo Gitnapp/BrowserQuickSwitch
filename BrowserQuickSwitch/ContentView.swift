@@ -28,7 +28,7 @@ struct ContentView: View {
         .task {
             await viewModel.loadBrowsers()
         }
-        .onChange(of: detectNonStandardPaths) { _ in
+        .onChange(of: detectNonStandardPaths) { newValue in
             Task {
                 await viewModel.loadBrowsers()
             }
