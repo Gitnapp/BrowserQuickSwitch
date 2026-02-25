@@ -44,13 +44,13 @@ struct AboutView: View {
     }
 
     private var versionInfo: some View {
-        HStack(spacing: 8) {
+        VStack(spacing: 4) {
             Text("版本 \(appVersion)")
                 .font(.body)
                 .foregroundColor(.secondary)
 
-            Text("(\(buildNumber))")
-                .font(.body)
+            Text("Build \(buildNumber)")
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
     }
