@@ -12,8 +12,7 @@ struct AboutView: View {
             // App Name
             Text("BrowserQuickSwitch")
                 .font(.title)
-                .fontWeight(.medium)
-
+                .fontWeight(.bold)
             // Version Info
             versionInfo
 
@@ -24,16 +23,24 @@ struct AboutView: View {
 
             Spacer()
         }
-        .frame(width: 400, height: 350)
+        .frame(width: 450, height: 380)
         .background(Color(NSColor.windowBackgroundColor))
     }
 
     // MARK: - Subviews
     private var appIcon: some View {
-        Image(systemName: "globe")
-            .font(.system(size: 64))
-            .foregroundColor(.accentColor)
-            .symbolRenderingMode(.hierarchical)
+        Group {
+            if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                Image(nsImage: appIcon)
+                    .resizable()
+                    .frame(width: 64, height: 64)
+            } else {
+                Image(systemName: "globe")
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .foregroundColor(.accentColor)
+            }
+        }
     }
 
     private var versionInfo: some View {
