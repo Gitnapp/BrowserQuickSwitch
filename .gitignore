@@ -8,6 +8,8 @@
 build/
 altBuild/
 DerivedData/
+derivedData/
+release_build/
 
 ## User settings
 xcuserdata/
