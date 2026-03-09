@@ -46,8 +46,10 @@ final class BrowserService: BrowserServiceProtocol {
         for browser in BrowserConfiguration.knownBrowsers {
             if let appURL = workspace.urlForApplication(withBundleIdentifier: browser.bundleId) {
                 if !detectNonStandardPaths {
-                    let isStandardPath = appURL.path.hasPrefix("/Applications/") || 
-                                         appURL.path.hasPrefix("/System/Applications/") || 
+                    let isStandardPath = appURL.path.hasPrefix("/Applications/") ||
+                                         appURL.path.hasPrefix("/System/Applications/") ||
+                                         appURL.path.hasPrefix("/System/Volumes/Preboot/Cryptexes/App/System/Applications/") ||
+                                         appURL.path.hasPrefix("/System/Cryptexes/App/System/Applications/") ||
                                          appURL.path.hasPrefix((NSHomeDirectory() + "/Applications/")) ||
                                          appURL.path == browser.appPath
                     if !isStandardPath {
