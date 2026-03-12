@@ -60,7 +60,10 @@ struct BrowserRow: View {
     let onSelect: () -> Void
 
     var body: some View {
-        Button(action: onSelect) {
+        Toggle(isOn: Binding(
+            get: { isSelected },
+            set: { _ in onSelect() }
+        )) {
             HStack(spacing: 8) {
                 if showBrowserIcon {
                     if let icon = browserInfo.icon {
@@ -70,29 +73,12 @@ struct BrowserRow: View {
                     } else {
                         Image(systemName: "globe")
                             .frame(width: 16, height: 16)
-                            .foregroundColor(.secondary)
                     }
-                } else {
-                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(isSelected ? .accentColor : .secondary)
-                        .font(.system(size: 14))
                 }
 
-                // Browser name
                 Text(browserInfo.displayName)
-                    .foregroundColor(.primary)
-
-                Spacer()
             }
-            .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 6)
-                .fill(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
-        )
     }
 }
 
