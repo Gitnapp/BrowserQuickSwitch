@@ -110,20 +110,18 @@ jobs:
       - name: Deploy appcast to gh-pages
         if: steps.check_tag.outputs.exists == 'false'
         run: |
+          # Save appcast.xml to temp location
+          cp appcast.xml /tmp/appcast.xml
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Create or update gh-pages branch
+          # Clean workspace and switch to gh-pages
           git fetch origin gh-pages || true
-          if git rev-parse --verify origin/gh-pages >/dev/null 2>&1; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf . 2>/dev/null || true
-          fi
+          git checkout -f gh-pages
 
-          # Copy appcast.xml to root
-          cp "$GITHUB_WORKSPACE/appcast.xml" appcast.xml
+          # Copy appcast.xml and push
+          cp /tmp/appcast.xml appcast.xml
           git add appcast.xml
           git commit -m "Update appcast.xml for ${{ steps.version.outputs.tag }}" || echo "No changes to commit"
           git push origin gh-pages
