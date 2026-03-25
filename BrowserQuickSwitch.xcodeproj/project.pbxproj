@@ -78,6 +78,7 @@
 			);
 			name = BrowserQuickSwitch;
 			packageProductDependencies = (
+				842F66412E1AC10000B674D1 /* Sparkle */,
 			);
 			productName = BrowserQuickSwitch;
 			productReference = 9A9BD8992D465C03005E399C /* BrowserQuickSwitch.app */;
@@ -109,6 +110,9 @@
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9A9BD89A2D465C03005E399C /* Products */;
+			packageReferences = (
+				842F66402E1AC10000B674D1 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -342,6 +346,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		842F66402E1AC10000B674D1 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		842F66412E1AC10000B674D1 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 842F66402E1AC10000B674D1 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9A9BD8912D465C03005E399C /* Project object */;
 }

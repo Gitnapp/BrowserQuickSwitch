@@ -4,11 +4,12 @@ import SwiftUI
 @main
 struct BrowserQuickSwitchApp: App {
     @Environment(\.openWindow) private var openWindow
+    @StateObject private var updaterService = UpdaterService()
 
     var body: some Scene {
         // MenuBar Extra
         MenuBarExtra {
-            MenuContent()
+            MenuContent(updaterService: updaterService)
         } label: {
             Image(systemName: "globe")
         }
@@ -34,11 +35,17 @@ struct BrowserQuickSwitchApp: App {
 // MARK: - Menu Content View
 struct MenuContent: View {
     @Environment(\.openWindow) private var openWindow
+    @ObservedObject var updaterService: UpdaterService
 
     var body: some View {
         ContentView()
 
         Divider()
+
+        Button("检查更新...") {
+            updaterService.checkForUpdates()
+        }
+        .disabled(!updaterService.canCheckForUpdates)
 
         Button("设置") {
             openSettingsWindow()
@@ -65,10 +72,8 @@ struct MenuContent: View {
     }
 
     private func openAboutWindow() {
-        // 使用 SwiftUI 的 openWindow 环境变量
         openWindow(id: "about")
 
-        // 激活应用并将窗口置于前台
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             NSApp.activate(ignoringOtherApps: true)
         }

@@ -1,0 +1,129 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-release:
+    runs-on: macos-15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(grep 'MARKETING_VERSION' BrowserQuickSwitch.xcodeproj/project.pbxproj | head -1 | sed 's/.*= *\(.*\);/\1/' | tr -d ' ')
+          BUILD=$(grep 'CURRENT_PROJECT_VERSION' BrowserQuickSwitch.xcodeproj/project.pbxproj | head -1 | sed 's/.*= *\(.*\);/\1/' | tr -d ' ')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "build=$BUILD" >> "$GITHUB_OUTPUT"
+          echo "tag=v${VERSION}-build${BUILD}" >> "$GITHUB_OUTPUT"
+          echo "Version: $VERSION, Build: $BUILD"
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "refs/tags/${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -project BrowserQuickSwitch.xcodeproj \
+            -scheme BrowserQuickSwitch \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package app
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          cd build/Build/Products/Release
+          zip -r -y BrowserQuickSwitch.zip BrowserQuickSwitch.app
+
+      - name: Sign update with EdDSA
+        if: steps.check_tag.outputs.exists == 'false'
+        id: sign
+        env:
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          OUTPUT=$(swift scripts/sign_update.swift "$SPARKLE_PRIVATE_KEY" build/Build/Products/Release/BrowserQuickSwitch.zip)
+          ED_SIGNATURE=$(echo "$OUTPUT" | grep edSignature | cut -d= -f2)
+          LENGTH=$(echo "$OUTPUT" | grep length | cut -d= -f2)
+          echo "signature=$ED_SIGNATURE" >> "$GITHUB_OUTPUT"
+          echo "length=$LENGTH" >> "$GITHUB_OUTPUT"
+          echo "Signature: $ED_SIGNATURE"
+          echo "Length: $LENGTH"
+
+      - name: Generate appcast.xml
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          DOWNLOAD_URL="https://github.com/Gitnapp/BrowserQuickSwitch/releases/download/${{ steps.version.outputs.tag }}/BrowserQuickSwitch.zip"
+          PUB_DATE=$(date -u '+%a, %d %b %Y %H:%M:%S %z')
+          cat > appcast.xml << APPCAST_EOF
+          <?xml version="1.0" encoding="utf-8"?>
+          <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <channel>
+              <title>BrowserQuickSwitch</title>
+              <link>https://github.com/Gitnapp/BrowserQuickSwitch</link>
+              <item>
+                <title>Version ${{ steps.version.outputs.version }}</title>
+                <sparkle:version>${{ steps.version.outputs.build }}</sparkle:version>
+                <sparkle:shortVersionString>${{ steps.version.outputs.version }}</sparkle:shortVersionString>
+                <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                <pubDate>${PUB_DATE}</pubDate>
+                <enclosure
+                  url="${DOWNLOAD_URL}"
+                  type="application/octet-stream"
+                  sparkle:edSignature="${{ steps.sign.outputs.signature }}"
+                  length="${{ steps.sign.outputs.length }}"
+                />
+              </item>
+            </channel>
+          </rss>
+          APPCAST_EOF
+
+      - name: Create Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: BrowserQuickSwitch ${{ steps.version.outputs.version }} (Build ${{ steps.version.outputs.build }})
+          files: build/Build/Products/Release/BrowserQuickSwitch.zip
+          generate_release_notes: true
+
+      - name: Deploy appcast to gh-pages
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Create or update gh-pages branch
+          git fetch origin gh-pages || true
+          if git rev-parse --verify origin/gh-pages >/dev/null 2>&1; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . 2>/dev/null || true
+          fi
+
+          # Copy appcast.xml to root
+          cp "$GITHUB_WORKSPACE/appcast.xml" appcast.xml
+          git add appcast.xml
+          git commit -m "Update appcast.xml for ${{ steps.version.outputs.tag }}" || echo "No changes to commit"
+          git push origin gh-pages

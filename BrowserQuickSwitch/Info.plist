@@ -22,5 +22,9 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>https://gitnapp.github.io/BrowserQuickSwitch/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>cfjcwF1/N6+ShWAwlrcKIO2XBnIS0VvXWbtK7kJCfYw=</string>
 </dict>
 </plist>
