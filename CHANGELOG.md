@@ -18,6 +18,19 @@
 
 ---
 
+## [2026-03-25] 修复 CI 部署 appcast.xml 到 gh-pages 的文件冲突
+
+**改动文件：**
+- `.github/workflows/build.yml` — 部署步骤先将 appcast.xml 复制到 /tmp，再 checkout gh-pages
+
+**变更说明：**
+CI 在 Generate appcast.xml 步骤中生成的 appcast.xml 会与 gh-pages 分支上的同名文件冲突，导致 `git checkout gh-pages` 失败。改为先保存到 /tmp 再切换分支后复制回来。
+
+**影响范围：**
+CI/CD 配置
+
+---
+
 ## [2026-03-25] 添加 GitHub CI/CD 自动编译并发布 Release
 
 **改动文件：**
