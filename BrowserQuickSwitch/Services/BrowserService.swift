@@ -161,6 +161,8 @@ final class BrowserService: BrowserServiceProtocol {
             urlString = "https://microsoft.com/edge"
         } else if bundleID.contains("safari") {
             urlString = "https://apple.com/safari"
+        } else if bundleID.contains("openai.atlas") {
+            urlString = "https://chatgpt.com/atlas"
         } else {
             urlString = "https://www.google.com"
         }

@@ -67,6 +67,7 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "com.maxthon.mac", displayName: "Maxthon", appPath: "/Applications/Maxthon.app", websiteURL: makeURL("https://maxthon.com")),
         BrowserInfo(bundleId: "app.zen-browser.zen", displayName: "Zen Browser", appPath: "/Applications/Zen Browser.app", websiteURL: makeURL("https://zenbrowser.com")),
         BrowserInfo(bundleId: "company.thebrowser.dia", displayName: "Dia", appPath: "/Applications/Dia.app", websiteURL: makeURL("https://dia.com")),
+        BrowserInfo(bundleId: "com.openai.atlas", displayName: "ChatGPT Atlas", appPath: "/Applications/ChatGPT Atlas.app", websiteURL: makeURL("https://chatgpt.com/atlas")),
         BrowserInfo(bundleId: "com.quark.desktop", displayName: "Quark", appPath: "/Applications/Quark.app", websiteURL: makeURL("https://quark.com")),
         BrowserInfo(bundleId: "net.imput.helium", displayName: "Helium", appPath: "/Applications/Helium.app", websiteURL: makeURL("https://github.com/JadenGeller/Helium")),
         BrowserInfo(bundleId: "io.browsewithnook.nook", displayName: "Nook", appPath: "/Applications/Nook.app", websiteURL: makeURL("https://browsewithnook.com")),

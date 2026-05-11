@@ -1,3 +1,19 @@
+## [2026-05-11] 添加 ChatGPT Atlas 浏览器支持
+
+**改动文件：**
+- `BrowserQuickSwitch/Models/BrowserInfo.swift` — 添加 ChatGPT Atlas 到已知浏览器列表
+- `BrowserQuickSwitch/Services/BrowserService.swift` — 默认浏览器网站推断支持 Atlas
+- `README.md` — 更新支持浏览器列表
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.7（Build 12）
+
+**变更说明：**
+新增 ChatGPT Atlas（bundle id: `com.openai.atlas`）识别，安装在标准应用目录时会显示在菜单中，可切换为默认浏览器。
+
+**影响范围：**
+浏览器检测 / 默认浏览器切换 / 发布版本
+
+---
+
 ## [2026-03-25] 集成 Sparkle 自动更新
 
 **改动文件：**
