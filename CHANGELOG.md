@@ -1,3 +1,17 @@
+## [2026-05-11] 修复 Sparkle 更新包签名验证失败
+
+**改动文件：**
+- `.github/workflows/build.yml` — zip 前对 Release `.app` 执行 ad-hoc bundle 签名并严格验证
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.8（Build 13）
+
+**变更说明：**
+修复 GitHub Actions 使用 `CODE_SIGNING_ALLOWED=NO` 构建后，发布包内 `.app` 只有无效的 linker ad-hoc 签名，导致 Sparkle 报 “The update is improperly signed and could not be validated”。CI 现在会在打包前重新 ad-hoc 签名整个 app bundle，生成有效的 `_CodeSignature/CodeResources`。
+
+**影响范围：**
+CI/CD 发布包 / Sparkle 自动更新
+
+---
+
 ## [2026-05-11] 添加 ChatGPT Atlas 浏览器支持
 
 **改动文件：**

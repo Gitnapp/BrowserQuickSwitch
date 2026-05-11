@@ -50,6 +50,12 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
+      - name: Ad-hoc sign app bundle
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          codesign --force --deep --sign - --timestamp=none build/Build/Products/Release/BrowserQuickSwitch.app
+          codesign --verify --deep --strict --verbose=4 build/Build/Products/Release/BrowserQuickSwitch.app
+
       - name: Package app
         if: steps.check_tag.outputs.exists == 'false'
         run: |
