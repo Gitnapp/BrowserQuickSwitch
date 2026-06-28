@@ -1,3 +1,21 @@
+## [2026-06-28] 添加 ego lite 浏览器支持，并加固 Sparkle 更新签名
+
+**改动文件：**
+- `BrowserQuickSwitch/Models/BrowserInfo.swift` — 添加 ego lite（bundle id: `com.citrolabs.ego.lite`）到已知浏览器列表
+- `README.md` — 更新支持浏览器列表
+- `.github/workflows/build.yml` — 用 inside-out 逐层 ad-hoc 签名替换 `codesign --deep`，并逐个校验 Sparkle 嵌套组件
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.9（Build 14）
+
+**变更说明：**
+新增 ego lite 识别，安装在标准应用目录时会显示在菜单中，可切换为默认浏览器。
+
+同时修复一个可能阻断自动更新安装的签名隐患：`codesign --deep` 被 Apple 不推荐，且对“框架内嵌套 helper app + XPC service”（正是 Sparkle 的结构）签名不可靠——一旦 `Installer.xpc` / `Autoupdate` 等嵌套组件签名无效，macOS 会在更新阶段拒绝启动它们，导致下载成功但安装失败。CI 改为按 XPC service → Updater.app → Autoupdate → Sparkle.framework → 主 app 的顺序逐层签名，并对每个嵌套组件单独执行 `codesign --verify --strict`。
+
+**影响范围：**
+浏览器检测 / 默认浏览器切换 / CI/CD 发布包 / Sparkle 自动更新
+
+---
+
 ## [2026-05-11] 修复 Sparkle 更新包签名验证失败
 
 **改动文件：**

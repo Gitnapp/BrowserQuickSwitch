@@ -40,5 +40,6 @@ BrowserQuickSwitch supports the following browsers:
 - Dia
 - ChatGPT Atlas
 - Quark
+- ego lite
 
 The app automatically detects which browsers are installed on your system and only shows those in the menu.

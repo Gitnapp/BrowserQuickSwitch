@@ -53,8 +53,37 @@ jobs:
       - name: Ad-hoc sign app bundle
         if: steps.check_tag.outputs.exists == 'false'
         run: |
-          codesign --force --deep --sign - --timestamp=none build/Build/Products/Release/BrowserQuickSwitch.app
-          codesign --verify --deep --strict --verbose=4 build/Build/Products/Release/BrowserQuickSwitch.app
+          set -euo pipefail
+          APP="build/Build/Products/Release/BrowserQuickSwitch.app"
+          SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
+
+          # Sign inside-out. `codesign --deep` is discouraged by Apple and is
+          # unreliable for frameworks that bundle helper apps + XPC services
+          # (exactly Sparkle's layout). If any nested helper ends up with an
+          # invalid signature, macOS refuses to launch it during the update and
+          # installation silently fails. So sign each nested component first,
+          # then the framework, then the app last.
+          if [ -d "$SPARKLE" ]; then
+            VS="$SPARKLE/Versions/Current"
+            for xpc in "$VS"/XPCServices/*.xpc; do
+              [ -e "$xpc" ] && codesign --force --sign - --timestamp=none "$xpc"
+            done
+            [ -e "$VS/Updater.app" ] && codesign --force --sign - --timestamp=none "$VS/Updater.app"
+            [ -e "$VS/Autoupdate" ] && codesign --force --sign - --timestamp=none "$VS/Autoupdate"
+            codesign --force --sign - --timestamp=none "$SPARKLE"
+          fi
+
+          codesign --force --sign - --timestamp=none "$APP"
+
+          # Verify the nested Sparkle helpers individually (these must launch
+          # during the update) and then the whole bundle.
+          if [ -d "$SPARKLE" ]; then
+            VS="$SPARKLE/Versions/Current"
+            for c in "$VS/Autoupdate" "$VS/Updater.app" "$VS"/XPCServices/*.xpc "$SPARKLE"; do
+              [ -e "$c" ] && codesign --verify --strict --verbose=2 "$c"
+            done
+          fi
+          codesign --verify --deep --strict --verbose=4 "$APP"
 
       - name: Package app
         if: steps.check_tag.outputs.exists == 'false'

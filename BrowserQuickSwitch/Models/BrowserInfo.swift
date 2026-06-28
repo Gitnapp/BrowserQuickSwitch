@@ -71,6 +71,7 @@ enum BrowserConfiguration {
         BrowserInfo(bundleId: "com.quark.desktop", displayName: "Quark", appPath: "/Applications/Quark.app", websiteURL: makeURL("https://quark.com")),
         BrowserInfo(bundleId: "net.imput.helium", displayName: "Helium", appPath: "/Applications/Helium.app", websiteURL: makeURL("https://github.com/JadenGeller/Helium")),
         BrowserInfo(bundleId: "io.browsewithnook.nook", displayName: "Nook", appPath: "/Applications/Nook.app", websiteURL: makeURL("https://browsewithnook.com")),
-        BrowserInfo(bundleId: "com.tabbit-ai.Tabbit", displayName: "Tabbit", appPath: "/Applications/Tabbit.app", websiteURL: makeURL("https://tabbit.com"))
+        BrowserInfo(bundleId: "com.tabbit-ai.Tabbit", displayName: "Tabbit", appPath: "/Applications/Tabbit.app", websiteURL: makeURL("https://tabbit.com")),
+        BrowserInfo(bundleId: "com.citrolabs.ego.lite", displayName: "ego lite", appPath: "/Applications/ego lite.app", websiteURL: makeURL("https://lite.ego.app"))
     ]
 }
