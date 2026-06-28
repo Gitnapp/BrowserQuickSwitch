@@ -1,3 +1,17 @@
+## [2026-06-28] 菜单栏图标改为无背景的地球轮廓
+
+**改动文件：**
+- `BrowserQuickSwitch/BrowserQuickSwitchApp.swift` — 菜单栏图标改用 `globe.europe.africa.fill` 模板符号（去掉蓝色方形背景，只保留地球形状），渲染为 17pt 模板图，随明暗自动适配
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.12（Build 17）
+
+**变更说明：**
+此前用 App 图标作菜单栏图标：直接用彩色 App 图标会因 `MenuBarExtra` 按 NSImage 固有尺寸渲染而超大溢出；改为单色模板符号后，去掉了蓝色方形背景，只留地球轮廓，并按系统标准尺寸略放大（17pt），与系统其它菜单栏图标观感一致。仓库内只有压平的 PNG，没有 Icon Composer 的 `.icon` 分层源，无法精确抽取原前景，故用 SF Symbol 复刻地球形状。
+
+**影响范围：**
+菜单栏 UI / 发布版本
+
+---
+
 ## [2026-06-28] 更换菜单栏图标为 safari（指南针）
 
 **改动文件：**

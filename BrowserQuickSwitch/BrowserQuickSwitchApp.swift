@@ -6,12 +6,23 @@ struct BrowserQuickSwitchApp: App {
     @Environment(\.openWindow) private var openWindow
     @StateObject private var updaterService = UpdaterService()
 
+    // Globe symbol rendered a little larger than the system default. MenuBarExtra
+    // sizes the label to the NSImage's intrinsic size, so the point size here
+    // controls how big the menu bar icon appears. Template = adapts to light/dark.
+    private var menuBarIcon: NSImage {
+        let config = NSImage.SymbolConfiguration(pointSize: 17, weight: .regular)
+        let image = NSImage(systemSymbolName: "globe.europe.africa.fill", accessibilityDescription: "Browser Quick Switch")?
+            .withSymbolConfiguration(config) ?? NSImage()
+        image.isTemplate = true
+        return image
+    }
+
     var body: some Scene {
         // MenuBar Extra
         MenuBarExtra {
             MenuContent(updaterService: updaterService)
         } label: {
-            Image(systemName: "safari")
+            Image(nsImage: menuBarIcon)
         }
 
         // Settings Window
