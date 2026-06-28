@@ -1,3 +1,17 @@
+## [2026-06-28] 更换菜单栏图标为 safari（指南针）
+
+**改动文件：**
+- `BrowserQuickSwitch/BrowserQuickSwitchApp.swift` — 菜单栏图标由 `globe` 改为 `safari`
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.11（Build 16）
+
+**变更说明：**
+原 `globe` 地球图标过于通用，改用 `safari` 指南针图标，在菜单栏中更直观地表达"浏览器"。ContentView 中无图标浏览器的兜底 `globe` 保持不变。
+
+**影响范围：**
+菜单栏 UI / 发布版本
+
+---
+
 ## [2026-06-28] 修复中英文混排的 i18n 问题
 
 **改动文件：**

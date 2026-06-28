@@ -11,7 +11,7 @@ struct BrowserQuickSwitchApp: App {
         MenuBarExtra {
             MenuContent(updaterService: updaterService)
         } label: {
-            Image(systemName: "globe")
+            Image(systemName: "safari")
         }
 
         // Settings Window
