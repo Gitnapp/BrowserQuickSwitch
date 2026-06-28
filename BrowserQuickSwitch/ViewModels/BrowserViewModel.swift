@@ -46,13 +46,13 @@ final class BrowserViewModel: ObservableObject {
             // 更新成功后刷新状态
             await refreshDefaultBrowser()
 
-            showAlert(message: "\(browserInfo.displayName) 已设为默认浏览器")
+            showAlert(message: String(localized: "\(browserInfo.displayName) 已设为默认浏览器"))
         } catch BrowserServiceError.browserNotInstalled {
-            showAlert(message: "\(browserInfo.displayName) 未安装")
+            showAlert(message: String(localized: "\(browserInfo.displayName) 未安装"))
         } catch BrowserServiceError.unsupportedOS {
-            showAlert(message: "当前系统版本不支持自动设置默认浏览器，请手动设置")
+            showAlert(message: String(localized: "当前系统版本不支持自动设置默认浏览器，请手动设置"))
         } catch {
-            showAlert(message: "设置默认浏览器失败: \(error.localizedDescription)")
+            showAlert(message: String(localized: "设置默认浏览器失败: \(error.localizedDescription)"))
         }
     }
 

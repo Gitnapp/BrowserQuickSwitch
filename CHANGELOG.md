@@ -1,3 +1,19 @@
+## [2026-06-28] 修复中英文混排的 i18n 问题
+
+**改动文件：**
+- `BrowserQuickSwitch/Localizable.xcstrings` — 补全缺失的英文翻译（"检查更新..." 及一组提示/错误文案）
+- `BrowserQuickSwitch/ViewModels/BrowserViewModel.swift` — 弹窗提示文案用 `String(localized:)` 包装，使其参与本地化
+- `BrowserQuickSwitch/Services/BrowserService.swift` — `BrowserServiceError` 描述用 `String(localized:)` 包装
+- `BrowserQuickSwitch.xcodeproj/project.pbxproj` — 版本提升到 1.1.10（Build 15）
+
+**变更说明：**
+英文环境下菜单里"检查更新..."仍显示中文，而"Settings/About/Quit"为英文，出现中英混排。根因是字符串目录（源语言 zh-Hans）缺少"检查更新..."的英文翻译，回退到了中文源 key。补全该翻译后菜单恢复一致。同时发现弹窗提示与错误信息是以裸 `String` 经 `Text(_:)` 逐字显示、根本不参与本地化（英文环境下会弹出中文 toast），改用 `String(localized:)` 并补齐对应翻译。
+
+**影响范围：**
+本地化 / 菜单与提示文案 / 发布版本
+
+---
+
 ## [2026-06-28] 添加 ego lite 浏览器支持，并加固 Sparkle 更新签名
 
 **改动文件：**

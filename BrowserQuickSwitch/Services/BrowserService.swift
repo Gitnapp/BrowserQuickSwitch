@@ -18,13 +18,13 @@ enum BrowserServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .browserNotInstalled:
-            return "浏览器未安装"
+            return String(localized: "浏览器未安装")
         case .unsupportedOS:
-            return "当前系统版本不支持此操作"
+            return String(localized: "当前系统版本不支持此操作")
         case .setDefaultFailed(let message):
-            return "设置默认浏览器失败: \(message)"
+            return String(localized: "设置默认浏览器失败: \(message)")
         case .unknown:
-            return "未知错误"
+            return String(localized: "未知错误")
         }
     }
 }

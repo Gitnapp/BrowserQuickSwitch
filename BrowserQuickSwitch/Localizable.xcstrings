@@ -185,6 +185,94 @@
           }
         }
       }
+    },
+    "检查更新..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for Updates..."
+          }
+        }
+      }
+    },
+    "%@ 已设为默认浏览器" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ set as default browser"
+          }
+        }
+      }
+    },
+    "%@ 未安装" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is not installed"
+          }
+        }
+      }
+    },
+    "当前系统版本不支持自动设置默认浏览器，请手动设置" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setting the default browser automatically isn't supported on this version of macOS. Please set it manually."
+          }
+        }
+      }
+    },
+    "浏览器未安装" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browser is not installed"
+          }
+        }
+      }
+    },
+    "当前系统版本不支持此操作" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This operation isn't supported on the current version of macOS"
+          }
+        }
+      }
+    },
+    "设置默认浏览器失败: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to set default browser: %@"
+          }
+        }
+      }
+    },
+    "未知错误" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown error"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
