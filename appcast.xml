@@ -4,16 +4,16 @@
     <title>BrowserQuickSwitch</title>
     <link>https://github.com/Gitnapp/BrowserQuickSwitch</link>
     <item>
-      <title>Version 1.1.8</title>
-      <sparkle:version>13</sparkle:version>
-      <sparkle:shortVersionString>1.1.8</sparkle:shortVersionString>
+      <title>Version 1.1.9</title>
+      <sparkle:version>14</sparkle:version>
+      <sparkle:shortVersionString>1.1.9</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <pubDate>Mon, 11 May 2026 07:58:39 +0000</pubDate>
+      <pubDate>Sun, 28 Jun 2026 07:21:41 +0000</pubDate>
       <enclosure
-        url="https://github.com/Gitnapp/BrowserQuickSwitch/releases/download/v1.1.8-build13/BrowserQuickSwitch.zip"
+        url="https://github.com/Gitnapp/BrowserQuickSwitch/releases/download/v1.1.9-build14/BrowserQuickSwitch.zip"
         type="application/octet-stream"
-        sparkle:edSignature="sJegc0WnxGo3yjWmo1SaWvXFjRiGeKag/+ajg/TOyl0BXLfpgW4HLOwfPwyH2DXk9tF5otOaUL5t/VeRNmAsDg"
-        length="2251196"
+        sparkle:edSignature="Tqbn5cCH2mJpBq76qcIFxdp3JaQeF7Sd6iW0+utTZQk7/uTyDPZNeCoEAMZZwKhOofLKBFiUf2X5Qp9DKqYmAw"
+        length="2252022"
       />
     </item>
   </channel>
